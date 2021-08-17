@@ -2,19 +2,32 @@
 import random
 import tkinter as tk
 from tkinter import ttk
+import openpyxl
+
+
+
+wb = openpyxl.load_workbook('Score.xlsx')
+
+ws = wb.active
 
 '''Set Variables'''
 score=0
 total=0
 ques = "hello"
+rightL=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+totalL=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+RTVal=0
+
 
 '''Define Functions'''
 def newcalc():
     global question_label
     global ques
     global res
+    global RTVal
     a = random.randint(0,10)#Get Random Numbers between 0 and 10
     b = random.randint(0,10)
+    RTVal = b
     astr = str(a) #Make a and b strings
     bstr = str(b)
     xstr = "x"
@@ -33,18 +46,44 @@ def ginp():
     global score
     global res
     global total
+    global rightL
+    global totalL
+    global RTVal
     ctrlvar = input_label.get()#get input
     if int(ctrlvar) == int(res):#check if awnser correct
         print("Nice")
         score += 1
+        rightL[RTVal] += 1
     else:
         print("The right awnser would've been ",res)
     total += 1
+    totalL[RTVal] += 1
+
+    #print(totalL)
+    #print(rightL)
+
+
     clearentry()#call functions
     newcalc()
+    updateXL()
 
 def clearentry():
     input_label.delete(0, 'end')#clear entry label
+
+
+def updateXL():
+    ws['B2'].value = rightL[0]
+    ws['B3'].value = rightL[1]
+    ws['B4'].value = rightL[2]
+    ws['B5'].value = rightL[3]
+    ws['B6'].value = rightL[4]
+    ws['B7'].value = rightL[5]
+    ws['B8'].value = rightL[6]
+    ws['B9'].value = rightL[7]
+    ws['B10'].value = rightL[8]
+    ws['B11'].value = rightL[9]
+    ws['B12'].value = rightL[10]
+    wb.save('Score.xlsx')
 
 '''Setting the window up'''
 main = tk.Tk()

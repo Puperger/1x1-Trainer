@@ -21,10 +21,14 @@ RTVal=0
 
 '''Define Functions'''
 def newcalc():
+    input_label.delete(0, 'end')#clear entry label
     global question_label
     global ques
     global res
     global RTVal
+
+    input_label.delete(0, 'end')#clear entry label
+
     a = random.randint(0,10)#Get Random Numbers between 0 and 10
     b = random.randint(0,10)
     RTVal = b
@@ -58,12 +62,7 @@ def ginp():
         print("The right awnser would've been ",res)
     total += 1
     totalL[RTVal] += 1
-
-    #print(totalL)
-    #print(rightL)
-
-
-    clearentry()#call functions
+    #call functions
     newcalc()
     updateXL()
 
@@ -72,17 +71,9 @@ def clearentry():
 
 
 def updateXL():
-    ws['B2'].value = rightL[0]
-    ws['B3'].value = rightL[1]
-    ws['B4'].value = rightL[2]
-    ws['B5'].value = rightL[3]
-    ws['B6'].value = rightL[4]
-    ws['B7'].value = rightL[5]
-    ws['B8'].value = rightL[6]
-    ws['B9'].value = rightL[7]
-    ws['B10'].value = rightL[8]
-    ws['B11'].value = rightL[9]
-    ws['B12'].value = rightL[10]
+    wsnL = ['B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'B11', 'B12']
+    for k in range (10):
+        ws[wsnL[k]].value = rightL[k]
     wb.save('Score.xlsx')
 
 '''Setting the window up'''
